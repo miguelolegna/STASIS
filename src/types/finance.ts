@@ -4,6 +4,7 @@ export type Category = 'daily' | 'unexpected' | 'biscate' | 'debt_repayment';
 
 export interface Transaction {
   id: string;
+  
   desc: string;
   amount: number;
   type: TransactionType;
