@@ -14,59 +14,49 @@ import { Settings2, RefreshCcw } from 'lucide-react';
 export default function App() {
   const [user, setUser] = useState<any>(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const { transactions, debtStatus, stats, loading, updateStartBalance } = useFinance(user);
+  const { transactions, debtStatus, stats, loading, updateStartBalance, addTransaction } = useFinance(user);
+
+  // D. SISTEMA DE NOTIFICAÇÕES (BROWSER)
+  useEffect(() => {
+    if (stats.isCritical && Notification.permission === 'granted') {
+      new Notification("STASIS: DÉFICE CRÍTICO", {
+        body: `Quota diária abaixo do limite: ${stats.dailyAllowance.toFixed(2)}€`,
+        icon: "/pwa-192x192.png"
+      });
+    }
+  }, [stats.isCritical]);
 
   useEffect(() => {
     if (!auth) return;
     signInAnonymously(auth).catch(console.error);
+    if (Notification.permission === 'default') Notification.requestPermission();
     return onAuthStateChanged(auth, setUser);
   }, []);
-
-  const handleFixBalance = () => {
-    const newVal = prompt("Introduza o saldo atual real (em €):", stats.balance.toString());
-    if (newVal !== null) {
-      const amount = parseFloat(newVal);
-      // Cálculo: Para o saldo atual ser X, o startBalance deve ser X - (Entradas - Saídas)
-      // Simplificamos: ajustamos o startBalance para compensar a diferença
-      updateStartBalance(amount); 
-    }
-  };
 
   if (loading) return <div className="min-h-screen bg-slate-950 flex items-center justify-center text-blue-500"><RefreshCcw className="animate-spin" /></div>;
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 pb-32">
       <Header isCritical={stats.isCritical} />
-      
       <main className="max-w-md mx-auto p-4 space-y-6">
         <div className="flex justify-end px-2">
-          <button 
-            onClick={handleFixBalance}
-            className="flex items-center gap-2 text-[10px] font-black uppercase text-slate-500 hover:text-blue-400 transition-colors"
-          >
-            <Settings2 size={12} /> Corrigir Valor Atual
+          <button onClick={() => {
+            const val = prompt("Saldo real atual:", stats.balance.toString());
+            if (val) updateStartBalance(parseFloat(val));
+          }} className="text-[10px] font-black uppercase text-slate-500">
+            <Settings2 size={12} className="inline mr-1" /> Ajuste Manual
           </button>
         </div>
-
-        <div className="animate-slide-up space-y-6">
-          <BalanceCard stats={stats} onAdd={function (): void {
-            throw new Error('Function not implemented.');
-          } } />
-          <DebtStats debt={debtStatus} extra={stats.totalExtra} />
-          <TransactionHistory transactions={transactions} />
-        </div>
+        <BalanceCard stats={stats} onAdd={() => setIsFormOpen(true)} />
+        <DebtStats debt={debtStatus} extra={stats.totalExtra} />
+        <TransactionHistory transactions={transactions} />
       </main>
-
       <TransactionForm 
         isOpen={isFormOpen} 
         onClose={() => setIsFormOpen(false)} 
-        debtRemaining={debtStatus.remaining} 
+        onSave={(data: any) => { addTransaction(data); setIsFormOpen(false); }}
       />
-
-      <BottomNav 
-        currentView={isFormOpen ? 'add' : 'dashboard'} 
-        setView={(v: string) => setIsFormOpen(v === 'add')} 
-      />
+      <BottomNav currentView={isFormOpen ? 'add' : 'dashboard'} setView={(v: string) => setIsFormOpen(v === 'add')} />
     </div>
   );
 }
