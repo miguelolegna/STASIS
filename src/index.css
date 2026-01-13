@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+/* As tuas variáveis de cor personalizadas entram aqui no v4 */
+@theme {
+  --color-primary-blue: #0A71CD;
+  --color-midnight: #021729;
+  --color-midnight-surface: #04233D;
+}
+
+/* O resto do teu CSS (animações, etc) */
+@layer utilities {
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out forwards;
+  }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
