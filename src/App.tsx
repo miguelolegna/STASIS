@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { auth, firebaseApp } from './lib/firebase';
+// src/App.tsx
+import { useState, useEffect } from 'react';
+import { auth } from './lib/firebase';
 import { signInAnonymously, onAuthStateChanged } from 'firebase/auth';
 import { useFinance } from './hooks/useFinance';
 import { Header } from './components/layout/Header';

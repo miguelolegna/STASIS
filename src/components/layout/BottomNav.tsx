@@ -1,4 +1,4 @@
-import React from 'react';
+// src/components/Layout/BottomNav.tsx
 import { LayoutDashboard, Plus, RefreshCcw } from 'lucide-react';
 
 export const BottomNav = ({ currentView, setView }: any) => (

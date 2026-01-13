@@ -1,4 +1,4 @@
-import React from 'react';
+// src/components/dashboard/TransactionHistory.tsx
 import { ArrowDownLeft, ArrowUpRight, PiggyBank, Trash2 } from 'lucide-react';
 
 const icons = {

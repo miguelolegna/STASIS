@@ -1,4 +1,4 @@
-import React from 'react';
+// src/components/dashboard/BalanceCard.tsx
 import { Plus } from 'lucide-react';
 
 export const BalanceCard = ({ stats, onAdd }: { stats: any, onAdd: () => void }) => (

@@ -1,4 +1,4 @@
-import React from 'react';
+// src/components/dashboard/DebtStats.tsx
 import { ShieldAlert, TrendingUp } from 'lucide-react';
 
 export const DebtStats = ({ debt, extra }: { debt: any, extra: number }) => (

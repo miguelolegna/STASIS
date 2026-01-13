@@ -1,7 +1,4 @@
 // src/components/layout/Header.tsx
-
-import React from 'react';
-
 export const Header = ({ isCritical }: { isCritical: boolean }) => (
   <nav className="p-6 pt-12 border-b border-white/5 sticky top-0 bg-slate-950/80 backdrop-blur-xl z-20">
     <div className="max-w-md mx-auto flex justify-between items-center">

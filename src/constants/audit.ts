@@ -1,3 +1,4 @@
+// src/constants/audit.ts
 export const CONFIG = {
   INCOME_FIXED: 381.25,
   EXPENSES_FIXED: 172.00,

@@ -1,3 +1,4 @@
+// src/hooks/useFinance.ts
 import { useState, useEffect, useMemo } from 'react';
 import { collection, onSnapshot, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { db, APP_ID } from '../lib/firebase';
