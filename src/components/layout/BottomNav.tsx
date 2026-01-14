@@ -1,28 +1,27 @@
-// src/components/Layout/BottomNav.tsx
-import { LayoutDashboard, Plus, RefreshCcw } from 'lucide-react';
+import { LayoutGrid, Plus, BarChart3 } from 'lucide-react';
 
-export const BottomNav = ({ currentView, setView }: any) => (
+export const BottomNav = ({ currentView, setView }: { currentView: string, setView: (v: string) => void }) => (
   <nav className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50">
-    <div className="bg-[#04233D] border border-white/10 p-2 rounded-full flex items-center gap-2 shadow-2xl backdrop-blur-xl">
+    <div className="flex items-center gap-4 bg-[#04233D]/90 backdrop-blur-xl p-3 rounded-[2.5rem] border border-white/10 shadow-2xl">
       <button 
         onClick={() => setView('dashboard')}
-        className={`p-4 rounded-full transition-all ${currentView === 'dashboard' ? 'bg-[#0A71CD] text-white' : 'text-slate-500 hover:text-white'}`}
+        className={`p-4 rounded-2xl transition-all ${currentView === 'dashboard' ? 'bg-primary-blue text-white' : 'text-slate-500'}`}
       >
-        <LayoutDashboard size={20} />
+        <LayoutGrid size={24} />
       </button>
 
       <button 
         onClick={() => setView('add')}
-        className={`p-5 rounded-full bg-[#0A71CD] text-white shadow-lg shadow-blue-900/40 hover:scale-110 active:scale-95 transition-all`}
+        className="p-5 bg-primary-blue text-white rounded-3xl shadow-lg shadow-blue-500/40 active:scale-90 transition-all"
       >
-        <Plus size={28} strokeWidth={3} />
+        <Plus size={28} />
       </button>
 
       <button 
-        onClick={() => window.location.reload()}
-        className="p-4 rounded-full text-slate-500 hover:text-white transition-all"
+        onClick={() => setView('analytics')}
+        className={`p-4 rounded-2xl transition-all ${currentView === 'analytics' ? 'bg-primary-blue text-white' : 'text-slate-500'}`}
       >
-        <RefreshCcw size={20} />
+        <BarChart3 size={24} />
       </button>
     </div>
   </nav>
